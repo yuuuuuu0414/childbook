@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莉莉的冒險 - Lily's Adventures</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f7f2;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #ff7b7b;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffe459;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffe459;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .story-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .story-intro h1 {
+            color: #ff7b7b;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-intro p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Story Sections */
+        .story-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .story-image {
+            flex: 1;
+            min-height: 400px;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .story-text {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .story-text h2 {
+            color: #ff7b7b;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .story-text .lesson {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: #ff7b7b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffe459;
+        }
+
+        .footer-section p, .footer-section ul {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffe459;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #555;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: #ffe459;
+            color: #333;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #555;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #ff7b7b;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+
+            nav.active {
+                max-height: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                padding-top: 1rem;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                padding: 0.7rem 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .mobile-menu-button {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1.5rem;
+            }
+
+            .story-section, .story-section:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .story-image {
+                min-height: 300px;
+            }
+
+            .footer-section {
+                flex: 100%;
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-intro h1 {
+                font-size: 2rem;
+            }
+
+            .story-intro p {
+                font-size: 1rem;
+            }
+
+            .story-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .story-text p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header and Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">莉莉的冒險 <span>Lily's Adventures</span></div>
+            <button class="mobile-menu-button">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#home">首頁</a></li>
+                    <li><a href="#about">關於莉莉</a></li>
+                    <li><a href="#stories">故事</a></li>
+                    <li><a href="#lessons">學習</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="story-intro" id="home">
+            <h1>莉莉的成長冒險</h1>
+            <p>跟著穿著紅色洋裝、戴著太陽帽的莉莉一起學習生活中的重要課程。莉莉有著捲曲的金髮和燦爛的笑容，她充滿活力和冒險精神，總是樂於探索和學習新事物。</p>
+        </section>
+
+        <section id="about" class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image1.jpg -->
+                <img src="image1.jpg" alt="莉莉照顧花朵">
+            </div>
+            <div class="story-text">
+                <h2>照顧花朵的莉莉</h2>
+                <p>莉莉喜歡在花園裡照顧花朵，細心地澆水、施肥，並清理周圍的雜草。她的媽媽常常告訴她，照顧植物就像照顧自己一樣重要。</p>
+                <p class="lesson">「照顧植物就像照顧自己一樣重要。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image2.jpg -->
+                <img src="image2.jpg" alt="莉莉和朋友踢球">
+            </div>
+            <div class="story-text">
+                <h2>學會分享的莉莉</h2>
+                <p>莉莉和她的朋友們輪流踢球，大家一起玩得很開心。通過這個遊戲，莉莉學會了與朋友們一起玩耍並分享遊戲的樂趣。</p>
+                <p class="lesson">「分享能帶來更多快樂。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image3.jpg -->
+                <img src="image3.jpg" alt="莉莉在課堂上">
+            </div>
+            <div class="story-text">
+                <h2>課堂上的莉莉</h2>
+                <p>在課堂上，莉莉學會了聆聽老師和同學們的發言，並且輪流發言。這讓她明白了尊重他人的重要性。</p>
+                <p class="lesson">「聆聽是尊重他人的方式。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image4.jpg -->
+                <img src="image4.jpg" alt="莉莉幫忙打掃">
+            </div>
+            <div class="story-text">
+                <h2>樂於助人的莉莉</h2>
+                <p>莉莉幫忙打掃家裡，她的媽媽因為她的幫忙而表揚她。這讓莉莉明白，幫助家人是一件很棒的事情。</p>
+                <p class="lesson">「幫助他人也是幫助自己。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image5.jpg -->
+                <img src="image5.jpg" alt="莉莉安慰摔倒的孩子">
+            </div>
+            <div class="story-text">
+                <h2>富有同情心的莉莉</h2>
+                <p>莉莉注意到一個摔倒的孩子，她立即跑過去幫忙，安慰那個孩子。這顯示了莉莉擁有的關愛和同情心。</p>
+                <p class="lesson">「關心他人是一種美德。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image6.jpg -->
+                <img src="image6.jpg" alt="莉莉整理玩具">
+            </div>
+            <div class="story-text">
+                <h2>負責任的莉莉</h2>
+                <p>玩完玩具後，莉莉自己整理好玩具，感到非常自豪。這讓她學會了負責任的重要性。</p>
+                <p class="lesson">「負責任讓我們感到自豪。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image7.jpg -->
+                <img src="image7.jpg" alt="莉莉和朋友一起做手工">
+            </div>
+            <div class="story-text">
+                <h2>合作的莉莉</h2>
+                <p>莉莉和她的朋友們一起製作手工藝品，分享想法並完成了一個美麗的作品。這教會了莉莉團隊合作的價值。</p>
+                <p class="lesson">「合作可以創造美好的事物。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image8.jpg -->
+                <img src="image8.jpg" alt="莉莉幫忙切菜">
+            </div>
+            <div class="story-text">
+                <h2>健康飲食的莉莉</h2>
+                <p>莉莉幫忙切蔬菜，她的爸爸教她如何製作健康的蔬菜沙拉。這讓莉莉學會了健康飲食的重要性。</p>
+                <p class="lesson">「健康的飲食習慣讓我們更強壯。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image9.jpg -->
+                <img src="image9.jpg" alt="莉莉找到迷路的小貓">
+            </div>
+            <div class="story-text">
+                <h2>善良的莉莉</h2>
+                <p>莉莉找到了一隻迷路的小貓，並幫助它安全地回家。這展示了莉莉的善良和愛心。</p>
+                <p class="lesson">「幫助弱小是一種美德。」</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-image">
+                <!-- Image placeholder for image10.jpg -->
+                <img src="image10.jpg" alt="莉莉睡前閱讀">
+            </div>
+            <div class="story-text">
+                <h2>愛閱讀的莉莉</h2>
+                <p>莉莉的父母告訴她，每晚閱讀對眼睛和大腦都有好處，於是她開始在睡前閱讀。這培養了莉莉的閱讀習慣。</p>
+                <p class="lesson">「閱讀是打開知識之門的鑰匙。」</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>關於莉莉的冒險</h3>
+                <p>「莉莉的冒險」是一個為孩子們設計的教育故事系列，旨在通過有趣的故事教導孩子們重要的生活課程和價值觀。</p>
+            </div>
+            <div class="footer-section">
+                <h3>探索更多</h3>
+                <ul>
+                    <li><a href="#home">首頁</a></li>
+                    <li><a href="#about">關於莉莉</a></li>
+                    <li><a href="#stories">故事</a></li>
+                    <li><a href="#lessons">學習</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>其他故事系列</h3>
+                <ul>
+                    <li><a href="#">湯姆的冒險</a></li>
+                    <li><a href="#">小熊的森林</a></li>
+                    <li><a href="#">米亞的魔法學校</a></li>
+                    <li><a href="#">勇敢的小獅子</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>聯絡我們</h3>
+                <p>電郵：info@lilyadventures.com</p>
+                <p>電話：+886-2-1234-5678</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook">F</a>
+                    <a href="#" aria-label="Instagram">I</a>
+                    <a href="#" aria-label="Twitter">T</a>
+                    <a href="#" aria-label="YouTube">Y</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 莉莉的冒險 | Lily's Adventures. 版權所有。</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">↑</div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const nav = document.querySelector('nav');
+
+        mobileMenuButton.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when clicking a nav link on mobile
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on Scroll (simple implementation)
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('.story-section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                    section.style.transition = 'opacity 1s ease, transform 1s ease';
+                } else {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(50px)';
+                }
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', revealOnScroll);
+        window.addEventListener('scroll', revealOnScroll);
+    </script>
+</body>
+</html>
